@@ -267,7 +267,7 @@ install_autostart() {
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=NEOPlay
+Name=NEO Play
 Comment=NEO app store — launches fullscreen on startup
 Exec=env NEOPLAY_FULLSCREEN=1 $BIN_LINK
 Terminal=false
