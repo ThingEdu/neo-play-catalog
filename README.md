@@ -41,6 +41,13 @@ https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/catalog.json
 
 1. The app's install script must meet **NEO App Script Convention v0**.
 2. Pin the script (in the NeoPlay dev repo): `python tools/pin_script.py <url-pointing-at-tag-vX.Y.Z>` → copy the generated `source` entry into `catalog.json` here.
-3. Validate before merging: from a NeoPlay checkout with this repo as a sibling, run `python tools/validate_catalog.py neo-play-catalog/catalog.json` (or `make check`). Every entry must have a pinned semver `version` and a tag/SHA URL — never a branch.
+3. Open a PR. **CI validates `catalog.json` automatically** (`.github/workflows/validate.yml`). Every entry must have a pinned semver `version` and a tag/SHA URL — never a branch.
+
+To validate locally before pushing:
+
+```bash
+pip install --no-deps neo-play
+python tools/validate_catalog.py catalog.json
+```
 
 Each `source.url` must resolve publicly (e.g. `ThingEdu/neo-code@<sha>`), since devices fetch it unauthenticated.
