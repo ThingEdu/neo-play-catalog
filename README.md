@@ -39,7 +39,7 @@ https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/catalog.json
 
 ## Adding an app (ThingEdu review)
 
-1. The app's install script must meet **NEO App Script Convention v0**.
+1. The app's install script must meet **NEO App Script Convention v0** — see [docs/script-convention.md](docs/script-convention.md) for the full contract + a copy-paste template.
 2. Pin the script (in the NeoPlay dev repo): `python tools/pin_script.py <url-pointing-at-tag-vX.Y.Z>` → copy the generated `source` entry into `catalog.json` here.
 3. Open a PR. **CI validates `catalog.json` automatically** (`.github/workflows/validate.yml`). Every entry must have a pinned semver `version` and a tag/SHA URL — never a branch.
 

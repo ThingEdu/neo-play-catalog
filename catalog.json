@@ -9,12 +9,41 @@
       "version": "0.1.0",
       "category": "lap_trinh",
       "age_rating": "10+",
-      "labels": ["free", "neo_native", "deploy_ready"],
-      "exec": ["neo-code"],
+      "labels": [
+        "free",
+        "neo_native",
+        "deploy_ready"
+      ],
+      "exec": [
+        "neo-code"
+      ],
       "source": {
         "type": "script",
-        "url": "https://raw.githubusercontent.com/ThingEdu/neo-code/b321998b223ca5b968e230bd700616002208a7e8/scripts/install_on_neo.sh",
-        "sha256": "fb0cb9f7d1d97d15de4b220b7f7467940427c0d616cc1792ce92902aa2b13df9"
+        "url": "https://raw.githubusercontent.com/ThingEdu/neo-code/6e3f656ec9672172cf6a9d9ec49ec97cb76b47ed/scripts/install_on_neo.sh",
+        "sha256": "5bbab1c9d055d5402074766758ff60b357a22c0c99aaa351534c2c01fb754db9"
+      }
+    },
+    {
+      "id": "neo-stopmotion",
+      "name": "NEO Stop Motion",
+      "summary": "Phần mềm quay phim hoạt hình cho học sinh",
+      "description": "Dễ sử dụng, hỗ trợ tạo phim hoạt hình đơn giản.",
+      "icon": "icons/neo-stopmotion.png",
+      "version": "1.0.1",
+      "category": "sang_tao",
+      "age_rating": "10+",
+      "labels": [
+        "free",
+        "neo_native",
+        "deploy_ready"
+      ],
+      "exec": [
+        "neo-stopmotion"
+      ],
+      "source": {
+        "type": "script",
+        "url": "https://raw.githubusercontent.com/ThingEdu/neo-stopmotion/af4d766ded7897142fcf8cf48943ab74592b8d91/scripts/install_on_neo.sh",
+        "sha256": "38aa8d5fe136cd243cab651a4433c509f22c3a239cc90fcbfdbd69250af10820"
       }
     },
     {
@@ -26,8 +55,14 @@
       "version": "25.0.0",
       "category": "khoa_hoc",
       "age_rating": "4+",
-      "labels": ["free", "foss"],
-      "source": {"type": "flathub", "app_id": "org.kde.gcompris"}
+      "labels": [
+        "free",
+        "foss"
+      ],
+      "source": {
+        "type": "flathub",
+        "app_id": "org.kde.gcompris"
+      }
     },
     {
       "id": "scratch",
@@ -38,8 +73,14 @@
       "version": "3.0.0",
       "category": "lap_trinh",
       "age_rating": "8+",
-      "labels": ["free", "foss"],
-      "source": {"type": "flathub", "app_id": "edu.mit.Scratch"}
+      "labels": [
+        "free",
+        "foss"
+      ],
+      "source": {
+        "type": "flathub",
+        "app_id": "edu.mit.Scratch"
+      }
     },
     {
       "id": "tuxpaint",
@@ -50,8 +91,14 @@
       "version": "0.9.0",
       "category": "sang_tao",
       "age_rating": "4+",
-      "labels": ["free", "foss"],
-      "source": {"type": "flathub", "app_id": "org.tuxpaint.Tuxpaint"}
+      "labels": [
+        "free",
+        "foss"
+      ],
+      "source": {
+        "type": "flathub",
+        "app_id": "org.tuxpaint.Tuxpaint"
+      }
     },
     {
       "id": "stellarium",
@@ -62,9 +109,18 @@
       "version": "24.1.0",
       "category": "khoa_hoc",
       "age_rating": "8+",
-      "labels": ["free", "foss"],
-      "source": {"type": "flathub", "app_id": "org.stellarium.Stellarium"}
+      "labels": [
+        "free",
+        "foss"
+      ],
+      "source": {
+        "type": "flathub",
+        "app_id": "org.stellarium.Stellarium"
+      }
     }
   ],
-  "featured": ["neo-code", "gcompris"]
+  "featured": [
+    "neo-code",
+    "gcompris"
+  ]
 }
