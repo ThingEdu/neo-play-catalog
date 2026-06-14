@@ -4,7 +4,7 @@ How to make an app's install script work with **NEOPlay**, so it can be added to
 this catalog. NEOPlay installs an app by downloading **one script**, verifying its
 `sha256`, and running it. This document is the contract that script must follow.
 
-> TL;DR: one idempotent bash script that accepts `--version X.Y.Z` and `--uninstall`,
+> TL;DR: one idempotent bash script that accepts `--version=X.Y.Z` and `--uninstall`,
 > runs with **no sudo / no TTY**, installs into a **per-app venv**, and prints
 > `NEOPLAY_INSTALLED version=X.Y.Z` on success.
 
@@ -17,16 +17,16 @@ NEOPlay (`ScriptInstaller`) does exactly this:
 | Step | Behaviour |
 |------|-----------|
 | Download | Fetches the **exact** script at the pinned `source.url`, verifies it against `source.sha256`, caches it. A mismatch aborts — the script never runs. |
-| Install | Runs `bash <script> --version <X.Y.Z>` as a **normal user**, **no sudo, no TTY**, with a **20-minute timeout** (the whole process group is killed on timeout). |
+| Install | Runs `bash <script> --version=<X.Y.Z>` as a **normal user**, **no sudo, no TTY**, with a **20-minute timeout** (the whole process group is killed on timeout). |
 | Uninstall | Runs `bash <script> --uninstall`. |
 | Parse | Scans **stdout** for `NEOPLAY_INSTALLED version=X.Y.Z`, and **stdout+stderr** for `NEOPLAY_ERROR=<code>`. |
 | Result | Exit code `0` = success; non-zero = failure (NEOPlay shows a friendly message and rolls the button back to *Install*). |
 
 Two consequences that trip people up:
 
-- **NEOPlay always passes `--version X.Y.Z`.** A script whose argument parser rejects
-  unknown options (`*) echo "Unknown option"; exit 1`) will fail instantly, before it
-  installs anything. Your script **must** accept `--version`.
+- **NEOPlay always passes `--version=X.Y.Z`** (single token, `=` form). A script whose
+  argument parser rejects unknown options (`*) echo "Unknown option"; exit 1`) will fail
+  instantly, before it installs anything. Your script **must** accept `--version=X.Y.Z`.
 - **There is no terminal.** Anything that calls `sudo` (which needs a password prompt)
   or otherwise expects a TTY will hang or fail. Run fully as the user.
 
@@ -37,7 +37,7 @@ Two consequences that trip people up:
 | # | Requirement | Why |
 |---|-------------|-----|
 | 1 | **One script, idempotent, with `--uninstall`** in the same file. Re-running = update; `--uninstall` removes cleanly. | The catalog stores one URL; NEOPlay reuses it for update + remove. |
-| 2 | **Accept `--version X.Y.Z` (required)** and install exactly that version (`pip install pkg==X.Y.Z`, or `git+repo@vX.Y.Z`). | ThingEdu approves a specific version; every device installs the same one. NEOPlay always passes this flag. |
+| 2 | **Accept `--version=X.Y.Z` (required)** and install exactly that version (`pip install pkg==X.Y.Z`, or `git+repo@vX.Y.Z`). | ThingEdu approves a specific version; every device installs the same one. NEOPlay always passes this flag. |
 | 3 | **No sudo at runtime.** Check whether system deps are present; if they are missing and there's no TTY, print `NEOPLAY_ERROR=missing_system_deps` and exit non-zero. Heavy native deps (PyQt, OpenCV, …) are **pre-baked into the NEO image** at flash time. | NEOPlay runs your script without a TTY; `sudo` would hang. |
 | 4 | **A per-app virtualenv** at `~/Applications/<id>/venv` — never `pip --break-system-packages` into the shared site-packages. | No dependency conflicts between apps; uninstall = delete the folder. |
 | 5 | **Machine-readable output:** on success the last line is `NEOPLAY_INSTALLED version=X.Y.Z`; on error print `NEOPLAY_ERROR=<code>`; use correct exit codes. | NEOPlay parses this to update its registry and show the right message. |
@@ -79,8 +79,8 @@ VERSION=""
 UNINSTALL=false
 while [ $# -gt 0 ]; do
     case "$1" in
-        --version)    VERSION="${2:-}"; shift 2 ;;  # NEOPlay passes: --version X.Y.Z
-        --version=*)  VERSION="${1#*=}"; shift ;;
+        --version=*)  VERSION="${1#*=}"; shift ;;   # NEOPlay passes: --version=X.Y.Z
+        --version)    VERSION="${2:-}"; shift 2 ;;  # also accept the space form (human CLI)
         --uninstall)  UNINSTALL=true; shift ;;
         --no-desktop) shift ;;                      # accept & ignore
         *)            shift ;;                       # never hard-fail on unknown args
@@ -178,7 +178,7 @@ Validation rules (enforced by CI — see [`.github/workflows/validate.yml`](../.
 ## 5. Submission checklist
 
 - [ ] Single script, runs idempotently; re-running updates in place.
-- [ ] Accepts `--version X.Y.Z` and installs exactly that version.
+- [ ] Accepts `--version=X.Y.Z` and installs exactly that version.
 - [ ] Accepts `--uninstall` and removes everything cleanly.
 - [ ] **Never calls `sudo`**; if system deps are missing, prints `NEOPLAY_ERROR=missing_system_deps` and exits non-zero.
 - [ ] Installs into a per-app venv under `~/Applications/<id>/`.
