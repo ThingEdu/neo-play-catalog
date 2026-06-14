@@ -240,7 +240,7 @@ install_desktop_entry() {
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=NEOPlay
+Name=NEO Play
 GenericName=App Store
 Comment=App store and launcher for NEO devices
 Exec=$BIN_LINK
