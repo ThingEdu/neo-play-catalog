@@ -27,8 +27,13 @@ Two consequences that trip people up:
 - **NEOPlay always passes `--version=X.Y.Z`** (single token, `=` form). A script whose
   argument parser rejects unknown options (`*) echo "Unknown option"; exit 1`) will fail
   instantly, before it installs anything. Your script **must** accept `--version=X.Y.Z`.
-- **There is no terminal.** Anything that calls `sudo` (which needs a password prompt)
-  or otherwise expects a TTY will hang or fail. Run fully as the user.
+- **There is no terminal, but `sudo` works.** NEOPlay runs your script without a TTY, so
+  `sudo` can't prompt for a password itself. Instead, **NEOPlay pre-authorizes a sudo
+  ticket before running the script** (it asks the user for the password in a GUI dialog,
+  validates it, and refreshes sudo's ~15-minute credential cache). So plain `sudo apt-get …`
+  inside your script works — but **never** run an interactive `sudo` that expects to read a
+  password from the terminal, and don't assume one is available indefinitely (keep the
+  privileged part short, near the start). See [§3a](#3a-sudo--system-dependencies).
 
 ---
 
@@ -38,7 +43,7 @@ Two consequences that trip people up:
 |---|-------------|-----|
 | 1 | **One script, idempotent, with `--uninstall`** in the same file. Re-running = update; `--uninstall` removes cleanly. | The catalog stores one URL; NEOPlay reuses it for update + remove. |
 | 2 | **Accept `--version=X.Y.Z` (required)** and install exactly that version (`pip install pkg==X.Y.Z`, or `git+repo@vX.Y.Z`). | ThingEdu approves a specific version; every device installs the same one. NEOPlay always passes this flag. |
-| 3 | **No sudo at runtime.** Check whether system deps are present; if they are missing and there's no TTY, print `NEOPLAY_ERROR=missing_system_deps` and exit non-zero. Heavy native deps (PyQt, OpenCV, …) are **pre-baked into the NEO image** at flash time. | NEOPlay runs your script without a TTY; `sudo` would hang. |
+| 3 | **System deps via non-interactive `sudo` only.** Prefer relying on libraries **pre-baked into the NEO image** (PyQt, OpenCV, …). If you must `apt-get install`, use plain `sudo apt-get …` (NEOPlay pre-seeds the credential). Never call an interactive `sudo` that reads from a TTY. If a dep truly can't be installed, print `NEOPLAY_ERROR=missing_system_deps` and exit non-zero. | NEOPlay refreshes a sudo ticket before running you, so cached `sudo` works but a TTY prompt never will. See §3a. |
 | 4 | **A per-app virtualenv** at `~/Applications/<id>/venv` — never `pip --break-system-packages` into the shared site-packages. | No dependency conflicts between apps; uninstall = delete the folder. |
 | 5 | **Machine-readable output:** on success the last line is `NEOPLAY_INSTALLED version=X.Y.Z`; on error print `NEOPLAY_ERROR=<code>`; use correct exit codes. | NEOPlay parses this to update its registry and show the right message. |
 | 6 | **Create a user-level `.desktop` entry + icon.** | So the app can be launched after install. |
@@ -58,6 +63,32 @@ A script that doesn't print `NEOPLAY_INSTALLED` still installs in a **degraded**
 NEOPlay trusts the catalog version and flags the app `legacy` (so it can be upgraded
 later). This only works if the script still **exits 0** and still **accepts `--version`**
 without erroring. Emitting the marker is strongly preferred.
+
+### 3a. `sudo` & system dependencies
+
+NEOPlay runs your script with **no controlling terminal**, so `sudo` cannot prompt for a
+password on its own. To make `apt-get` work anyway, NEOPlay **pre-authorizes sudo before
+running the script**:
+
+1. The first time a script needs root in a session, NEOPlay runs `sudo -n true` to check
+   whether sudo is already usable (NOPASSWD image, or a still-valid ticket).
+2. If not, it shows the user a **password dialog**, validates it with `sudo -S -v` (password
+   over stdin — never argv, never logged), which refreshes sudo's credential cache (~15 min).
+3. Your script then runs, and its plain `sudo apt-get …` calls reuse that cached ticket.
+
+What this means for your script:
+
+- ✅ **Use plain `sudo apt-get install -y …`** for system packages. No `-A`, no `-S`, no
+  password handling of your own.
+- ✅ **Do the privileged work early and quickly** — the cached ticket lasts ~15 min, while
+  the whole install may run up to 20. Don't sit in a long build *before* your `sudo` calls.
+- ❌ **Never** run a `sudo` form that reads from a TTY (it will hang), and never embed or
+  ask for a password yourself.
+- ℹ️ If the user has no sudo rights or cancels the dialog, NEOPlay aborts the install before
+  your script runs and shows the user a clear message — your script is never started.
+
+Most apps shouldn't need this at all: the NEO image ships Qt and other heavy native
+libraries pre-baked, so a per-app venv with `--system-site-packages` already sees them.
 
 ---
 

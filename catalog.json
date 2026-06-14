@@ -6,7 +6,7 @@
       "summary": "IDE Python cho học sinh STEM và Robotics",
       "description": "Môi trường lập trình Python thân thiện, kết nối ThingBot.",
       "icon": "icons/neo-code.png",
-      "version": "0.1.0",
+      "version": "0.4.0",
       "category": "lap_trinh",
       "age_rating": "10+",
       "labels": [
