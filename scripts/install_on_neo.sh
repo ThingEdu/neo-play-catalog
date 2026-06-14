@@ -13,6 +13,7 @@
 #   --autostart        Boot straight into NEOPlay fullscreen (XDG autostart)
 #   --uninstall        Remove NEOPlay installation
 #   --version=X.Y.Z    Install a specific version from PyPI (default: latest)
+#   --test             Install from TestPyPI (dev/test builds), deps from real PyPI
 # ==============================================================================
 set -euo pipefail
 
@@ -31,6 +32,7 @@ RAW_INSTALL_URL="https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/mai
 SKIP_DESKTOP=false
 AUTOSTART=false
 UNINSTALL=false
+USE_TESTPYPI=false
 
 for arg in "$@"; do
     case "$arg" in
@@ -38,6 +40,7 @@ for arg in "$@"; do
         --autostart)  AUTOSTART=true ;;
         --uninstall)  UNINSTALL=true ;;
         --version=*)  INSTALL_VERSION="${arg#*=}" ;;
+        --test)       USE_TESTPYPI=true ;;
         *)            echo "Unknown option: $arg"; exit 1 ;;
     esac
 done
@@ -70,13 +73,18 @@ detect_arch() {
     esac
 }
 
-# pip install wrapper that adds --break-system-packages when needed.
+# pip install wrapper: adds --break-system-packages when needed; with --test,
+# pulls neo-play from TestPyPI while resolving deps from real PyPI.
 pip_install() {
-    local bsp=""
+    local bsp="" idx=()
     if python3 -m pip install --help 2>&1 | grep -q "break-system-packages"; then
         bsp="--break-system-packages"
     fi
-    python3 -m pip install $bsp "$@"
+    if [ "$USE_TESTPYPI" = true ]; then
+        idx=(--index-url https://test.pypi.org/simple/
+             --extra-index-url https://pypi.org/simple/)
+    fi
+    python3 -m pip install $bsp "${idx[@]}" "$@"
 }
 
 pip_uninstall() {

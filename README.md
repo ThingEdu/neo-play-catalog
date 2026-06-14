@@ -21,6 +21,14 @@ curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scrip
 
 Qt/PyQt6 comes from the apt packages already on the NEO image; the script installs `neo-play` from PyPI.
 
+### Test / dev builds (TestPyPI)
+
+To try a pre-release published to [TestPyPI](https://test.pypi.org/project/neo-play/), add `--test` (pulls `neo-play` from TestPyPI, dependencies from real PyPI). Pin the version with `--version=`:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scripts/install_on_neo.sh | bash -s -- --test --version=0.1.2
+```
+
 ## Catalog URL
 
 NEOPlay reads the catalog from:
