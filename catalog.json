@@ -1,0 +1,70 @@
+{
+  "apps": [
+    {
+      "id": "neo-code",
+      "name": "NEO Code",
+      "summary": "IDE Python cho học sinh STEM và Robotics",
+      "description": "Môi trường lập trình Python thân thiện, kết nối ThingBot.",
+      "icon": "icons/neo-code.png",
+      "version": "0.1.0",
+      "category": "lap_trinh",
+      "age_rating": "10+",
+      "labels": ["free", "neo_native", "deploy_ready"],
+      "exec": ["neo-code"],
+      "source": {
+        "type": "script",
+        "url": "https://raw.githubusercontent.com/ThingEdu/neo-code/b321998b223ca5b968e230bd700616002208a7e8/scripts/install_on_neo.sh",
+        "sha256": "fb0cb9f7d1d97d15de4b220b7f7467940427c0d616cc1792ce92902aa2b13df9"
+      }
+    },
+    {
+      "id": "gcompris",
+      "name": "GCompris",
+      "summary": "Bộ trò chơi giáo dục cho trẻ 2-10 tuổi",
+      "description": "Hơn 100 hoạt động: toán, đọc, khoa học, địa lý.",
+      "icon": "icons/gcompris.png",
+      "version": "25.0.0",
+      "category": "khoa_hoc",
+      "age_rating": "4+",
+      "labels": ["free", "foss"],
+      "source": {"type": "flathub", "app_id": "org.kde.gcompris"}
+    },
+    {
+      "id": "scratch",
+      "name": "Scratch",
+      "summary": "Lập trình kéo thả cho người mới bắt đầu",
+      "description": "Ngôn ngữ lập trình trực quan của MIT.",
+      "icon": "icons/scratch.png",
+      "version": "3.0.0",
+      "category": "lap_trinh",
+      "age_rating": "8+",
+      "labels": ["free", "foss"],
+      "source": {"type": "flathub", "app_id": "edu.mit.Scratch"}
+    },
+    {
+      "id": "tuxpaint",
+      "name": "Tux Paint",
+      "summary": "Vẽ tranh sáng tạo cho trẻ em",
+      "description": "Phần mềm vẽ với hiệu ứng vui nhộn.",
+      "icon": "icons/tuxpaint.png",
+      "version": "0.9.0",
+      "category": "sang_tao",
+      "age_rating": "4+",
+      "labels": ["free", "foss"],
+      "source": {"type": "flathub", "app_id": "org.tuxpaint.Tuxpaint"}
+    },
+    {
+      "id": "stellarium",
+      "name": "Stellarium",
+      "summary": "Bầu trời sao 3D ngay trên máy NEO",
+      "description": "Mô phỏng thiên văn thực tế, hơn 600.000 ngôi sao.",
+      "icon": "icons/stellarium.png",
+      "version": "24.1.0",
+      "category": "khoa_hoc",
+      "age_rating": "8+",
+      "labels": ["free", "foss"],
+      "source": {"type": "flathub", "app_id": "org.stellarium.Stellarium"}
+    }
+  ],
+  "featured": ["neo-code", "gcompris"]
+}
