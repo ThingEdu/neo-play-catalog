@@ -5,8 +5,8 @@ this catalog. NEOPlay installs an app by downloading **one script**, verifying i
 `sha256`, and running it. This document is the contract that script must follow.
 
 > TL;DR: one idempotent bash script that accepts `--version=X.Y.Z` and `--uninstall`,
-> runs with **no sudo / no TTY**, installs into a **per-app venv**, and prints
-> `NEOPLAY_INSTALLED version=X.Y.Z` on success.
+> runs with **no TTY** (sudo is pre-authorized by NEOPlay when needed), installs into a
+> **per-app venv**, and prints `NEOPLAY_INSTALLED version=X.Y.Z` on success.
 
 ---
 
@@ -131,7 +131,9 @@ if [ -z "$VERSION" ]; then
     exit 1
 fi
 
-# Convention #3: check pre-baked system deps; NEVER sudo here.
+# Convention #3a: install any missing system binary deps early (sudo pre-authorized by NEOPlay).
+# sudo apt-get install -y some-binary   # ← only if not pre-baked in the NEO image
+# Convention #3b: check that required Python/system deps are present before continuing.
 if ! python3 -c "import PyQt6" 2>/dev/null; then
     echo "NEOPLAY_ERROR=missing_system_deps" >&2
     exit 1
@@ -211,7 +213,7 @@ Validation rules (enforced by CI — see [`.github/workflows/validate.yml`](../.
 - [ ] Single script, runs idempotently; re-running updates in place.
 - [ ] Accepts `--version=X.Y.Z` and installs exactly that version.
 - [ ] Accepts `--uninstall` and removes everything cleanly.
-- [ ] **Never calls `sudo`**; if system deps are missing, prints `NEOPLAY_ERROR=missing_system_deps` and exits non-zero.
+- [ ] Uses `sudo apt-get install -y` only for required system binary deps not pre-baked into the NEO image; never an interactive `sudo` that reads from a TTY; if a dep can't be installed, prints `NEOPLAY_ERROR=missing_system_deps` and exits non-zero.
 - [ ] Installs into a per-app venv under `~/Applications/<id>/`.
 - [ ] Prints `NEOPLAY_INSTALLED version=X.Y.Z` as the last line on success.
 - [ ] Creates a `.desktop` entry + icon.
