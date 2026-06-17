@@ -195,6 +195,11 @@ if [ "$ARCH" = "arm" ]; then
         error "Install python3-pyqt6 and python3-pyqt6.qtsvg for this release, then rerun this script."
         exit 1
     fi
+
+    # qtawesome is a pure-Python dep skipped by --no-deps; install it explicitly.
+    info "Installing qtawesome..."
+    pip_install --quiet "qtawesome>=0.8" \
+        || { error "Failed to install qtawesome. Check your network and try again."; exit 1; }
 else
     # x86: PyQt6 wheels are available, normal install.
     pip_install --quiet "$PYPI_SPEC" \
