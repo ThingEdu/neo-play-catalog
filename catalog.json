@@ -47,6 +47,53 @@
       }
     },
     {
+      "id": "neoarcade",
+      "name": "NeoArcade",
+      "summary": "Bộ game arcade vận động ThingBot trên NEO",
+      "description": "Game arcade '1 nút' điều khiển bằng mạch ThingBot ESP32 (FlappyDe, Đua Xe Dế, Bóng Rổ, Đấm Bốc) — vận động + Blue Economy, Dế Foundation.",
+      "icon": "mdi.gamepad-variant",
+      "version": "0.1.0",
+      "category": "sang_tao",
+      "age_rating": "6+",
+      "labels": [
+        "free",
+        "neo_native",
+        "bundled"
+      ],
+      "exec": [
+        "neoarcade"
+      ],
+      "source": {
+        "type": "script",
+        "url": "https://raw.githubusercontent.com/ThingEdu/NeoArcade/bb6efc088c583e0ba713ebbef670b0e59ff35499/scripts/install_on_neo.sh",
+        "sha256": "d6e9bb5abfeb159d50bebe73c09cff1ffbe03620220ab1f6acc7be7fdd484d8b"
+      }
+    },
+    {
+      "id": "neoaisport",
+      "name": "NeoAiSport",
+      "summary": "Game thể thao thị giác AI bằng camera trên NEO",
+      "description": "Chơi bằng cơ thể (tay/tư thế) qua camera — Bắt Dế, Hứng Mưa, Đỡ Bóng. MediaPipe Tasks, Dế Foundation.",
+      "icon": "mdi.run-fast",
+      "version": "0.1.0",
+      "category": "sang_tao",
+      "age_rating": "6+",
+      "labels": [
+        "free",
+        "foss",
+        "neo_native",
+        "bundled"
+      ],
+      "exec": [
+        "neoaisport"
+      ],
+      "source": {
+        "type": "script",
+        "url": "https://raw.githubusercontent.com/ThingEdu/NeoAiSport/c43754c8bebb8c2da6ab193a65072c98d1af26f4/scripts/install_on_neo.sh",
+        "sha256": "e356f8b8905a4f619e00f76f31bdde0ecb191b0e7a8e488253c451cfe5901876"
+      }
+    },
+    {
       "id": "gcompris",
       "name": "GCompris",
       "summary": "Bộ trò chơi giáo dục cho trẻ 2-10 tuổi",
@@ -122,6 +169,8 @@
   "featured": [
     "neo-code",
     "neo-stopmotion",
+    "neoarcade",
+    "neoaisport",
     "gcompris"
   ]
 }
