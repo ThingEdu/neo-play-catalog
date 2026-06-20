@@ -167,6 +167,7 @@ install_system_deps() {
             libxkbcommon-x11-0 \
             libxcb-cursor0 \
             libxcb-xinerama0 \
+            python3-venv \
             2>/dev/null || true
     elif [ "$ARCH" = "x86" ]; then
         info "x86 detected - PyQt6 will be installed via pip wheels."
