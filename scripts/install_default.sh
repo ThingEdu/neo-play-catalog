@@ -6,7 +6,7 @@
 #
 # Apps installed:
 #   ThingEdu (self-installing scripts):
-#     neo-code, neo-stopmotion, neo-arcade, neo-piano, neo-stem
+#     neo-stopmotion, neo-arcade, neo-piano, neo-stem
 #   Distro packages (apt):
 #     gcompris (gcompris-qt), kturtle
 #
@@ -29,7 +29,6 @@ FAILED=()
 # Format: "display-name|raw install_on_neo.sh URL"
 RAW="https://raw.githubusercontent.com"
 APP_SCRIPTS=(
-    "neo-code|$RAW/ThingEdu/neo-code/main/scripts/install_on_neo.sh"
     "neo-stopmotion|$RAW/ThingEdu/neo-stopmotion/main/scripts/install_on_neo.sh"
     "neo-arcade|$RAW/ThingEdu/NeoArcade/main/scripts/install_on_neo.sh"
     "neo-piano|$RAW/ThingEdu/neo-piano/main/scripts/install_on_neo.sh"
