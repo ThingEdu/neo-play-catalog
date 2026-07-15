@@ -7,10 +7,14 @@ Every open-source NEO app repo ships a **human-friendly installer** at
 curl -fsSL https://raw.githubusercontent.com/<org>/<repo>/main/scripts/install_on_neo.sh | bash
 ```
 
-> **The NEOPlay store does not run this script.** The store installs the
-> release `.deb` directly (see [`app-entry-convention.md`](app-entry-convention.md)).
-> This script exists for developers, classrooms without the store, and manual
-> setups — it installs the *same* `.deb` from the *same* GitHub Release.
+> **This script is the install path for apps that are *not* published to
+> NeoPlay.** The NeoPlay store never runs it. The store lists only apps in its
+> catalog and installs their release `.deb` directly (see
+> [`app-entry-convention.md`](app-entry-convention.md)); its `source` types are
+> `deb` and `flathub` only — there is no `script` source. This one-liner is how
+> an "outer" app — one not on the NeoPlay shelf — gets onto a NEO device: by
+> developers, classrooms, and manual setups, installing the app's release `.deb`
+> straight from its GitHub Release.
 
 **What changed since v0/v1**: the script no longer carries a store contract —
 no `NEOPLAY_INSTALLED` / `NEOPLAY_ERROR` markers, no sha256 pinning of the
