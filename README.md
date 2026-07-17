@@ -1,13 +1,15 @@
 # neo-play-catalog
 
-Public catalog & installer for **[NEOPlay](https://pypi.org/project/neo-play/)** — the app store/launcher for NEO devices (ARM Linux), by ThingEdu.
+Public catalog & installer for **NEOPlay** — the app store/launcher for NEO devices (ARM Linux), by ThingEdu.
 
-This repo is the public distribution point that NEO devices read at runtime. The NEOPlay app itself lives in a separate (private) repo and is published to PyPI as `neo-play`.
+This repo is the public distribution point for NEO devices. The NEOPlay app itself lives in a separate (private) repo; since v2.0.0 it is a native (Rust/GTK4) app shipped as a `.deb` on **this repo's GitHub Releases** (tags are app-prefixed: `neo-play-vX.Y.Z`), because a device can't download assets from a private repo.
 
 ## Contents
 
-- **`catalog.json`** — the curated app shelf. NEOPlay fetches this over HTTP. Source of truth.
-- **`scripts/install_on_neo.sh`** — the on-device installer (`curl | bash`).
+- **`catalog.json`** — the curated app shelf (also the seed for the store backend).
+- **`scripts/install_on_neo.sh`** — the on-device NEOPlay installer (`curl | bash`).
+- **`scripts/install_default.sh`** — one-liner setup of a NEO One with the default ThingEdu apps.
+- **`docs/conventions/`** — how NEO apps are packaged, released, and installed.
 
 ## Install NEOPlay on a device
 
@@ -19,35 +21,14 @@ curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scrip
 curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scripts/install_on_neo.sh | bash -s -- --autostart
 ```
 
-Qt/PyQt6 comes from the apt packages already on the NEO image; the script installs `neo-play` from PyPI.
-
-### Test / dev builds (TestPyPI)
-
-To try a pre-release published to [TestPyPI](https://test.pypi.org/project/neo-play/), add `--test` (pulls `neo-play` from TestPyPI, dependencies from real PyPI). Pin the version with `--version=`:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scripts/install_on_neo.sh | bash -s -- --test --version=0.1.2
-```
-
-## Catalog URL
-
-NEOPlay reads the catalog from:
-
-```
-https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/catalog.json
-```
+The script downloads the release `.deb` and installs it via apt (dependencies come from the distro repos already on the NEO image). Uninstall with `-s -- --uninstall`; pin a specific release with `-s -- --version=X.Y.Z`.
 
 ## Adding an app (ThingEdu review)
 
-1. The app's install script must meet **NEO App Script Convention v0** — see [docs/script-convention.md](docs/script-convention.md) for the full contract + a copy-paste template.
-2. Pin the script (in the NeoPlay dev repo): `python tools/pin_script.py <url-pointing-at-tag-vX.Y.Z>` → copy the generated `source` entry into `catalog.json` here.
-3. Open a PR. **CI validates `catalog.json` automatically** (`.github/workflows/validate.yml`). Every entry must have a pinned semver `version` and a tag/SHA URL — never a branch.
+1. Package the app per [`docs/conventions/app-entry-convention.md`](docs/conventions/app-entry-convention.md): semver, an immutable `.deb` per release with complete `Depends:`, desktop entry + icon inside, launch command on PATH.
+2. Publish it per [`docs/conventions/github-release-convention.md`](docs/conventions/github-release-convention.md): org repo, `vX.Y.Z` tag, asset named `<pkg>_<X.Y.Z>_<arch>.deb`, assets never replaced.
+3. Submit the release's `.deb` URL + sha256 to ThingEdu for the store entry.
 
-To validate locally before pushing:
+Apps *not* published to the NEOPlay shelf ship a human-friendly `scripts/install_on_neo.sh` in their own repo instead — see [`docs/conventions/installation-script-convention.md`](docs/conventions/installation-script-convention.md).
 
-```bash
-pip install --no-deps neo-play
-python tools/validate_catalog.py catalog.json
-```
-
-Each `source.url` must resolve publicly (e.g. `ThingEdu/neo-code@<sha>`), since devices fetch it unauthenticated.
+Reference implementations: **neo-piano**, **neo-stopmotion**.
