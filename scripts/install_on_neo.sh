@@ -22,12 +22,12 @@ set -euo pipefail
 
 # -- Configuration ------------------------------------------------------------
 REPO="ThingEdu/NeoPlay"
-PKG="neoplay"                 # dpkg Package: name; launch command of the same name
+PKG="neo-play"                # dpkg Package: name; launch command of the same name
 DISPLAY_NAME="NEO Play"
 # v2.0.0 ships as a GitHub *pre-release*: `releases/latest` skips pre-releases,
 # so the default is pinned here and bumped on each release of this script.
 DEFAULT_VERSION="2.0.0"
-AUTOSTART_FILE="$HOME/.config/autostart/neoplay.desktop"
+AUTOSTART_FILE="$HOME/.config/autostart/neo-play.desktop"
 RAW_INSTALL_URL="https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scripts/install_on_neo.sh"
 
 # -- Parse arguments -----------------------------------------------------------
