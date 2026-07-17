@@ -6,7 +6,7 @@
 # Since v2.0.0 NEO Play is a native (Rust/GTK4) app shipped as a .deb on the
 # repo's GitHub Releases, following github-release-convention.md — this script
 # downloads the release asset and installs it via apt. The .deb carries the
-# desktop entry, icon, and the `neoplay` launch command on PATH, so there is no
+# desktop entry, icon, and the `neo-play` launch command on PATH, so there is no
 # per-user desktop integration step anymore (the old PyPI/pip flow is gone).
 #
 # Usage:
@@ -22,7 +22,7 @@ set -euo pipefail
 
 # -- Configuration ------------------------------------------------------------
 # Release .debs are hosted on THIS (public) repo's GitHub Releases — the app
-# repo (ThingEdu/NeoPlay) is private, so its assets aren't downloadable from a
+# repo (ThingEdu/neo-play) is private, so its assets aren't downloadable from a
 # device. Tags here are app-prefixed (neo-play-vX.Y.Z) since the catalog can
 # host assets for more than one app.
 REPO="ThingEdu/neo-play-catalog"
