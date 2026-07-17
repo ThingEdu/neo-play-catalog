@@ -21,7 +21,11 @@
 set -euo pipefail
 
 # -- Configuration ------------------------------------------------------------
-REPO="ThingEdu/NeoPlay"
+# Release .debs are hosted on THIS (public) repo's GitHub Releases — the app
+# repo (ThingEdu/NeoPlay) is private, so its assets aren't downloadable from a
+# device. Tags here are app-prefixed (neo-play-vX.Y.Z) since the catalog can
+# host assets for more than one app.
+REPO="ThingEdu/neo-play-catalog"
 PKG="neo-play"                # dpkg Package: name; launch command of the same name
 DISPLAY_NAME="NEO Play"
 # v2.0.0 ships as a GitHub *pre-release*: `releases/latest` skips pre-releases,
@@ -86,7 +90,7 @@ info "Detected architecture: $ARCH"
 # -- Step 1: Download the release .deb ----------------------------------------
 # Asset naming per github-release-convention.md: <pkg>_<X.Y.Z>_<arch>.deb
 DEB_NAME="${PKG}_${INSTALL_VERSION}_${ARCH}.deb"
-DEB_URL="https://github.com/$REPO/releases/download/v${INSTALL_VERSION}/${DEB_NAME}"
+DEB_URL="https://github.com/$REPO/releases/download/${PKG}-v${INSTALL_VERSION}/${DEB_NAME}"
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TMP_DIR"' EXIT
 
