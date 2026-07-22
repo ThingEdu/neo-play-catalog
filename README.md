@@ -6,10 +6,14 @@ This repo is the public distribution point for NEO devices. The NEOPlay app itse
 
 ## Contents
 
-- **`catalog.json`** — the curated app shelf (also the seed for the store backend).
+- **`catalogs.md`** — human-readable directory of known NEO apps and how to
+  install them outside the NeoPlay store.
 - **`scripts/install_on_neo.sh`** — the on-device NEOPlay installer (`curl | bash`).
 - **`scripts/install_default.sh`** — one-liner setup of a NEO One with the default ThingEdu apps.
 - **`docs/conventions/`** — how NEO apps are packaged, released, and installed.
+
+NeoPlay's actual store catalog (what the app reads) is served from a Supabase
+backend, not from this repo.
 
 ## Install NEO Play on a device
 
