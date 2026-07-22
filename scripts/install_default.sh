@@ -6,7 +6,8 @@
 #
 # Apps installed:
 #   ThingEdu (self-installing scripts):
-#     neo-stopmotion, neo-arcade, neo-piano, neo-stem
+#     neo-play (the store/launcher itself), neo-code, neo-stopmotion,
+#     neo-arcade, neo-piano, neo-stem
 #   Distro packages (apt):
 #     gcompris (gcompris-qt), kturtle
 #
@@ -27,8 +28,12 @@ FAILED=()
 
 # -- ThingEdu apps: each ships its own scripts/install_on_neo.sh ---------------
 # Format: "display-name|raw install_on_neo.sh URL"
+# neo-play comes first: it's the store/launcher every NEO One boots into, and
+# its installer lives in *this* repo (the app repo is private).
 RAW="https://raw.githubusercontent.com"
 APP_SCRIPTS=(
+    "neo-play|$RAW/ThingEdu/neo-play-catalog/main/scripts/install_on_neo.sh"
+    "neo-code|$RAW/ThingEdu/neo-code/main/scripts/install_on_neo.sh"
     "neo-stopmotion|$RAW/ThingEdu/neo-stopmotion/main/scripts/install_on_neo.sh"
     "neo-arcade|$RAW/ThingEdu/NeoArcade/main/scripts/install_on_neo.sh"
     "neo-piano|$RAW/ThingEdu/neo-piano/main/scripts/install_on_neo.sh"

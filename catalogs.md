@@ -21,15 +21,30 @@ No arguments installs the latest release; add `-s -- --uninstall` to remove.
 | NEO Stop Motion | Phần mềm quay phim hoạt hình cho học sinh | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/neo-stopmotion/main/scripts/install_on_neo.sh \| bash` |
 | NeoArcade | Bộ game arcade vận động ThingBot trên NEO | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/NeoArcade/main/scripts/install_on_neo.sh \| bash` |
 | NeoAiSport | Game thể thao thị giác AI bằng camera trên NEO | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/NeoAiSport/main/scripts/install_on_neo.sh \| bash` |
+| NEO Piano | Đàn piano trên máy NEO One | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/neo-piano/main/scripts/install_on_neo.sh \| bash` |
+| NEO STEM | Ứng dụng học STEM tương tác trên NEO | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/neo-stem/master/scripts/install_on_neo.sh \| bash` |
 
-## Open-source apps (Flathub)
+## Open-source apps (apt)
+
+NEO One runs no flatpak, so these come from the Debian 12 (bookworm) archive.
+All are available for arm64.
 
 | App | Summary | Install |
 |---|---|---|
-| GCompris | Bộ trò chơi giáo dục cho trẻ 2-10 tuổi | `flatpak install -y flathub org.kde.gcompris` |
-| Scratch | Lập trình kéo thả cho người mới bắt đầu | `flatpak install -y flathub edu.mit.Scratch` |
-| Tux Paint | Vẽ tranh sáng tạo cho trẻ em | `flatpak install -y flathub org.tuxpaint.Tuxpaint` |
-| Stellarium | Bầu trời sao 3D ngay trên máy NEO | `flatpak install -y flathub org.stellarium.Stellarium` |
+| GCompris | Bộ trò chơi giáo dục cho trẻ 2-10 tuổi | `sudo apt-get install -y gcompris-qt` |
+| KTurtle | Lập trình rùa vẽ hình cho học sinh mới bắt đầu | `sudo apt-get install -y kturtle` |
+| Tux Paint | Vẽ tranh sáng tạo cho trẻ em | `sudo apt-get install -y tuxpaint tuxpaint-stamps` |
+| Stellarium | Bầu trời sao 3D ngay trên máy NEO | `sudo apt-get install -y stellarium` |
 
-For the default one-liner setup of a fresh NEO One, see
-[`scripts/install_default.sh`](scripts/install_default.sh).
+## Default NEO One setup
+
+[`scripts/install_default.sh`](scripts/install_default.sh) provisions a fresh
+device in one line: the NeoPlay store itself, then NEO Code, NEO Stop Motion,
+NeoArcade, NEO Piano and NEO STEM, then GCompris and KTurtle from apt.
+
+```bash
+curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scripts/install_default.sh | bash
+```
+
+NeoAiSport, Tux Paint and Stellarium are not part of the default set — install
+those by hand with the one-liners in the tables above.
