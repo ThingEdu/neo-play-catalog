@@ -30,5 +30,3 @@ The script downloads the release `.deb` and installs it via apt (dependencies co
 3. Submit the release's `.deb` URL + sha256 to ThingEdu for the store entry.
 
 Apps *not* published to the NEOPlay shelf ship a human-friendly `scripts/install_on_neo.sh` in their own repo instead — see [`docs/conventions/installation-script-convention.md`](docs/conventions/installation-script-convention.md).
-
-Reference implementations: **neo-piano**, **neo-stopmotion**.
