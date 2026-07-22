@@ -1,6 +1,6 @@
 # neo-play-catalog
 
-Public catalog & installer for **NEOPlay** — the app store/launcher for NEO devices (ARM Linux), by ThingEdu.
+Public catalog & installer for **NEO Play** — the app store/launcher for NEO devices (ARM Linux), by ThingEdu.
 
 This repo is the public distribution point for NEO devices. The NEOPlay app itself lives in a separate (private) repo; since v2.0.0 it is a native (Rust/GTK4) app shipped as a `.deb` on **this repo's GitHub Releases** (tags are app-prefixed: `neo-play-vX.Y.Z`), because a device can't download assets from a private repo.
 
@@ -11,7 +11,7 @@ This repo is the public distribution point for NEO devices. The NEOPlay app itse
 - **`scripts/install_default.sh`** — one-liner setup of a NEO One with the default ThingEdu apps.
 - **`docs/conventions/`** — how NEO apps are packaged, released, and installed.
 
-## Install NEOPlay on a device
+## Install NEO Play on a device
 
 ```bash
 # normal install (icon in the menu)
