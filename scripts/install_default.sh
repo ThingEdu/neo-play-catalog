@@ -35,7 +35,7 @@ APP_SCRIPTS=(
     "neo-play|$RAW/ThingEdu/neo-play-catalog/main/scripts/install_on_neo.sh"
     "neo-code|$RAW/ThingEdu/neo-code/main/scripts/install_on_neo.sh"
     "neo-stopmotion|$RAW/ThingEdu/neo-stopmotion/main/scripts/install_on_neo.sh"
-    "neo-arcade|$RAW/ThingEdu/NeoArcade/main/scripts/install_on_neo.sh"
+    "neo-arcade|$RAW/ThingEdu/neo-arcade/main/scripts/install_on_neo.sh"
     "neo-piano|$RAW/ThingEdu/neo-piano/main/scripts/install_on_neo.sh"
     "neo-stem|$RAW/ThingEdu/neo-stem/master/scripts/install_on_neo.sh"
 )

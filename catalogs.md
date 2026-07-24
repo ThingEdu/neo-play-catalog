@@ -19,7 +19,7 @@ No arguments installs the latest release; add `-s -- --uninstall` to remove.
 |---|---|---|
 | NEO Code | IDE Python cho học sinh STEM và Robotics | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/neo-code/main/scripts/install_on_neo.sh \| bash` |
 | NEO Stop Motion | Phần mềm quay phim hoạt hình cho học sinh | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/neo-stopmotion/main/scripts/install_on_neo.sh \| bash` |
-| NeoArcade | Bộ game arcade vận động ThingBot trên NEO | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/NeoArcade/main/scripts/install_on_neo.sh \| bash` |
+| NEO Arcade | Bộ game arcade vận động ThingBot trên NEO | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/neo-arcade/main/scripts/install_on_neo.sh \| bash` |
 | NeoAiSport | Game thể thao thị giác AI bằng camera trên NEO | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/NeoAiSport/main/scripts/install_on_neo.sh \| bash` |
 | NEO Piano | Đàn piano trên máy NEO One | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/neo-piano/main/scripts/install_on_neo.sh \| bash` |
 | NEO STEM | Ứng dụng học STEM tương tác trên NEO | `curl -fsSL https://raw.githubusercontent.com/ThingEdu/neo-stem/master/scripts/install_on_neo.sh \| bash` |
@@ -40,7 +40,7 @@ All are available for arm64.
 
 [`scripts/install_default.sh`](scripts/install_default.sh) provisions a fresh
 device in one line: the NeoPlay store itself, then NEO Code, NEO Stop Motion,
-NeoArcade, NEO Piano and NEO STEM, then GCompris and KTurtle from apt.
+NEO Arcade, NEO Piano and NEO STEM, then GCompris and KTurtle from apt.
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scripts/install_default.sh | bash
