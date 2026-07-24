@@ -1,6 +1,6 @@
-# neo-play-catalog
+# neo-play-hub
 
-Public catalog & installer for **NEO Play** — the app store/launcher for NEO devices (ARM Linux), by ThingEdu.
+Public distribution hub for **NEO Play** — the app store/launcher for NEO devices (ARM Linux), by ThingEdu.
 
 This repo is the public distribution point for NEO devices. The NEOPlay app itself lives in a separate (private) repo; since v2.0.0 it is a native (Rust/GTK4) app shipped as a `.deb` on **this repo's GitHub Releases** (tags are app-prefixed: `neo-play-vX.Y.Z`), because a device can't download assets from a private repo.
 
@@ -19,10 +19,10 @@ backend, not from this repo.
 
 ```bash
 # normal install (icon in the menu)
-curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scripts/install_on_neo.sh | bash
+curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-hub/main/scripts/install_on_neo.sh | bash
 
 # boot straight into NEOPlay fullscreen (classroom mode)
-curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-catalog/main/scripts/install_on_neo.sh | bash -s -- --autostart
+curl -sSL https://raw.githubusercontent.com/ThingEdu/neo-play-hub/main/scripts/install_on_neo.sh | bash -s -- --autostart
 ```
 
 The script downloads the release `.deb` and installs it via apt (dependencies come from the distro repos already on the NEO image). Uninstall with `-s -- --uninstall`; pin a specific release with `-s -- --version=X.Y.Z`.
